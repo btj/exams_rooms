@@ -13,11 +13,23 @@ public class Exam {
 
 	/**
 	 * @invar | rooms != null
-	 * @invar | rooms.stream().allMatch(room -> room != null && room.exams.contains(this))
+	 * @invar | rooms.stream().allMatch(room -> room != null)
 	 * @representationObject
-	 * @peerObjects
 	 */
-	Set<Room> rooms = new HashSet<>();
+	private Set<Room> rooms = new HashSet<>();
+	
+	/**
+	 * @invar | getRoomsInternal().stream().allMatch(room -> room.getExamsInternal().contains(this))
+	 * 
+	 * @creates | result
+	 * @post | result != null
+	 * @post | result.stream().allMatch(room -> room != null)
+	 * 
+	 * @peerObjects (package-level)
+	 */
+	Set<Room> getRoomsInternal() {
+		return Set.copyOf(rooms);
+	}
 	
 	/**
 	 * @creates | result
@@ -43,7 +55,7 @@ public class Exam {
 		if (room == null)
 			throw new IllegalArgumentException("room is null");
 		rooms.add(room);
-		room.exams.add(this);
+		room.addExam(this);
 	}
 	
 	/**
@@ -54,7 +66,7 @@ public class Exam {
 	 */
 	public void unlinkFrom(Room room) {
 		rooms.remove(room);
-		room.exams.remove(this);
+		room.removeExam(this);
 	}
 	
 }
