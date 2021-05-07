@@ -34,6 +34,7 @@ public class Room {
 	/**
 	 * @creates | result
 	 * @peerObjects
+	 * @basic
 	 */
 	public Set<Exam> getExams() {
 		return Set.copyOf(exams); 
